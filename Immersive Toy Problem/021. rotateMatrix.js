@@ -7,7 +7,7 @@ const rotateMatrix = function (matrix, direction) {
   matrix.length = 0; // hold original array reference
   matrix.push(...result); // Spread operator
   return matrix;
-};
+}; // 추가 과제 미완성
 
 /*
 NxN 매트릭스를 90도로 회전시키는 함수를 작성하세요.
