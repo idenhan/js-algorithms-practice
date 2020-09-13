@@ -16,11 +16,11 @@ const longestRun = function (string) {
 
 // 여러분들을 위해 무작위 문자열 생성기를 제공해 드리겠습니다!
 // (해답을 작성하는 데 꼭 필요하진 않지만, 테스트할 때 유용할 것입니다)
-var randomString = function (len) {
-  var text = "";
-  var possible = "abcdefghijklmnopqrstuvwxyz";
+const randomString = function (len) {
+  let text = "";
+  let possible = "abcdefghijklmnopqrstuvwxyz";
 
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
 
