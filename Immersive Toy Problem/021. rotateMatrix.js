@@ -1,4 +1,27 @@
 const rotateMatrix = function (matrix, direction) {
+  // Reference
+
+  direction = direction || 1;
+  var m = matrix.length,
+    n = matrix[0] && matrix[0].length;
+  var output = [];
+  // We iterate with i,j in output order to transparently support rectangular arrays
+  for (var i = 0; i < n; i++) {
+    output[i] = [];
+    for (var j = 0; j < m; j++) {
+      if (direction > 0) {
+        // rotate clockwise
+        output[i][j] = matrix[m - j - 1][i];
+      } else if (direction < 0) {
+        // rotate counterclockwise
+        output[i][j] = matrix[j][n - i - 1];
+      }
+    }
+  }
+  return output;
+};
+
+/*const rotateMatrix = function (matrix, direction) {
   // 행 : 가로, M, row, horizontal
   // 열 : 세로, N, column, vertical
   const N = matrix.length - 1;
@@ -7,7 +30,7 @@ const rotateMatrix = function (matrix, direction) {
   matrix.length = 0; // hold original array reference
   matrix.push(...result); // Spread operator
   return matrix;
-}; // 추가 과제 미완성
+}; // 추가 과제 미완성*/
 
 /*
 NxN 매트릭스를 90도로 회전시키는 함수를 작성하세요.
