@@ -12,7 +12,21 @@ const phoneDigitsToLetters = {
 };
 
 // TODO: return every combination that can be spelled on a phone with these digits
-const telephoneWords = function (digitString) {};
+const telephoneWords = function (digitString) {
+  let wordsArr = [];
+  const addDigitLetter = (letter, digit) => {
+    if (letter.length === digitString.length) {
+      wordsArr.push(letter);
+      return;
+    }
+    let digitLetter = phoneDigitsToLetters[digitString[digit]];
+    for (let i = 0; i < digitLetter.length; i++) {
+      addDigitLetter(letter + digitLetter[i], digit + 1);
+    }
+  };
+  addDigitLetter("", 0);
+  return wordsArr;
+};
 
 /* 
 일반적으로 여러분들이 쓰는 휴대전화 키패드는 각 숫자 키마다 대응되는 라틴 문자들을 가지고 있습니다. (무슨 소리냐고요? 다음 그림을 참고하세요!)
