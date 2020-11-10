@@ -1,29 +1,44 @@
-let makeHashTable = function () {
+let makeHashTable = function() {
   let result = {};
   let storage = [];
   let storageLimit = 4;
   let size = 0;
-  result.insert = function () /*...*/
-
-  {
-    // TODO: 여기에 코드를 작성합니다.
+  result.insert = function(key, value) {
+    let index = getIndexBelowMaxForKey(key, storageLimit);
+    if (storage[index]) {
+      storage[index][key] = value;
+    } else {
+      storage[index] = {};
+      storage[index][key] = value;
+      size++;
+    }
+    if (size >= (storageLimit * 3) / 4) {
+      storageLimit = storageLimit * 2;
+    }
   };
 
-  result.retrieve = function () /*...*/
-
-  {
-    // TODO: 여기에 코드를 작성합니다.
+  result.retrieve = function(key) {
+    let index = getIndexBelowMaxForKey(key, storageLimit);
+    if (storage[index]) {
+      let value = storage[index][key];
+      return value;
+    }
+    return undefined;
   };
 
-  result.remove = function () /*...*/
-
-  {
-    // TODO: 여기에 코드를 작성합니다.
+  result.remove = function(key) {
+    let index = getIndexBelowMaxForKey(key, storageLimit);
+    delete storage[index][key];
+    if (storage[index] === {}) {
+      size--;
+      storage[index] = undefined;
+    }
+    if (size < storageLimit / 4) {
+      storageLimit = storageLimit / 2;
+    }
   };
-
   return result;
 };
-
 // 아래는 '해쉬 함수 (hashing function)' 입니다. 건드리지 않고 사용만 하시면 됩니다.
 // 주어진 문자열을 0 과 max - 1 사이에서 골고루 분포된 정수 하나로 변환된 값을 반환합니다.
 const getIndexBelowMaxForKey = function (str, max) {
@@ -35,6 +50,7 @@ const getIndexBelowMaxForKey = function (str, max) {
   }
   return hash % max;
 };
+
 
 /*
 insert(), retrieve(), 그리고 remove() 메서드(methods) 가
