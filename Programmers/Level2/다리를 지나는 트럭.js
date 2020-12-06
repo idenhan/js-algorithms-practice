@@ -1,6 +1,53 @@
 function solution(bridge_length, weight, truck_weights) {
+  // answer: 걸린 시간
   let answer = 0;
+
+  // queue: 현재 다리상태
+  let queue = [];
+
+  // queueSum: 현재 다리무게
+  let queueSum = 0;
+
+  // queue의 길이는 다리 길이, 모두 0으로 초기화
+  for (let i = 0; i < bridge_length; i++) {
+    queue.push(0);
+  }
   
+  // nowTruck: 현재 다리를 지나는 트럭
+  let nowTruck = truck_weights.shift();
+
+  // 큐에 트럭을 넣고 다리를 앞으로 한칸씩 땡김
+  queue.unshift(nowTruck);
+  queue.pop();
+
+  // 다리 무게 증가
+  queueSum += nowTruck;
+
+  // 시간 증가
+  answer++;
+
+  // 쉬지않고 큐에 트럭을 넣거나 다리를 건너기 때문에 queueSum이 0이 되면 모든 트럭이 지나간 것.
+
+  while (queueSum) {
+    // 다리에 있는 트럭 이동
+    queueSum -= queue.pop();
+
+    // 일단 다리를 안 건넌 트럭 하나 빼기
+    nowTruck = truck_weights.shift();
+
+    // 다리에 들어갈 수 있으면 큐(다리)에 트럭 넣고 무게 증가
+    if (nowTruck + queueSum <= weight) {
+      queue.unshift(nowTruck);
+      queueSum += nowTruck;
+    }
+    // 다리에 들어갈 수 없으면 0을 넣고, 뺐던 트럭 다시 트럭 배열에 넣어줌
+    else {
+      queue.unshift(0);
+      truck_weights.unshift(nowTruck);
+    }
+    answer++;
+  }
+
   return answer;
 }
 
